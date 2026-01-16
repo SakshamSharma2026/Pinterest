@@ -1,0 +1,98 @@
+name: Flutter CI/CD Release Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build, Version, Release & Upload Artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout Code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2️⃣ Setup Java
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # 3️⃣ Setup Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      # 4️⃣ Install Dependencies
+      - name: Install Packages
+        run: flutter pub get
+
+      # 5️⃣ Auto Increment Build Number
+      - name: Bump Build Number
+        id: version
+        run: |
+          VERSION_LINE=$(grep '^version:' pubspec.yaml)
+          VERSION_NAME=$(echo $VERSION_LINE | cut -d+ -f1 | awk '{print $2}')
+          BUILD_NUMBER=$(echo $VERSION_LINE | cut -d+ -f2)
+
+          NEW_BUILD=$((BUILD_NUMBER + 1))
+
+          echo "New version: $VERSION_NAME+$NEW_BUILD"
+
+          sed -i "s/^version:.*/version: $VERSION_NAME+$NEW_BUILD/" pubspec.yaml
+
+          echo "version=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "build=$NEW_BUILD" >> $GITHUB_OUTPUT
+
+      # 6️⃣ Commit Version Bump
+      - name: Commit Version Update
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add pubspec.yaml
+          git commit -m "chore: bump build to ${{ steps.version.outputs.build }}"
+          git push
+
+      # 7️⃣ Run Analysis & Tests
+      - name: Analyze Code
+        run: flutter analyze
+
+      - name: Run Tests
+        run: flutter test
+
+      # 8️⃣ Build Release APK
+      - name: Build APK
+        run: flutter build apk --release
+
+      # 9️⃣ Upload Artifact to GitHub Actions
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      # 🔟 Create Git Tag
+      - name: Create Version Tag
+        run: |
+          git tag v${{ steps.version.outputs.version }}+${{ steps.version.outputs.build }}
+          git push origin --tags
+
+      # 1️⃣1️⃣ Create GitHub Release + Generate Notes + Attach APK
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}+${{ steps.version.outputs.build }}
+          name: Release v${{ steps.version.outputs.version }}+${{ steps.version.outputs.build }}
+          generate_release_notes: true
+          files: build/app/outputs/flutter-apk/app-release.apk
