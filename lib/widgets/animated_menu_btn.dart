@@ -29,7 +29,7 @@ class AnimatedMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  AnimatedPositioned(
+    return AnimatedPositioned(
       duration: duration,
       curve: curve,
       top: top,

@@ -11,15 +11,14 @@ import 'package:pinterest/core/app_constants.dart';
 /// This widget implements a long-press interaction pattern where a menu
 /// smoothly animates out from the touch point.
 /// It supports drag-to-select functionality with haptic feedback and smart boundary detection.
-class PinterestGestureDetector extends StatefulWidget {
-  const PinterestGestureDetector({super.key});
+class PinterestGestureMenu extends StatefulWidget {
+  const PinterestGestureMenu({super.key});
 
   @override
-  State<PinterestGestureDetector> createState() =>
-      _PinterestGestureDetectorState();
+  State<PinterestGestureMenu> createState() => _PinterestGestureMenuState();
 }
 
-class _PinterestGestureDetectorState extends State<PinterestGestureDetector>
+class _PinterestGestureMenuState extends State<PinterestGestureMenu>
     with SingleTickerProviderStateMixin {
   // --- State ---
   int? get _selectedIndex => _menuController.selectedIndex;

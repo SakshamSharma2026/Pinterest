@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pinterest/pinterest_gesture_detector.dart';
+import 'package:pinterest/pinterest_gesture_menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: PinterestGestureDetector(),
+      title: 'Pinterest Gesture Menu',
+      home: PinterestGestureMenu(),
     );
   }
 }
