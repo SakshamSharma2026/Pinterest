@@ -1,5 +1,7 @@
 # Pinterest Gesture Menu (Flutter)
 
+[![Flutter CI/CD Release Pipeline](https://github.com/SakshamSharma2026/Pinterest/actions/workflows/text-and-build.yaml/badge.svg)](https://github.com/SakshamSharma2026/Pinterest/actions/workflows/text-and-build.yaml)
+
 A **Pinterest-style long-press gesture menu** for Flutter that reveals a floating action menu from the user’s touch point. It supports **drag-to-select interactions, haptic feedback, smart boundary detection, and clean controller-driven architecture**.
 
 This component is designed with **production-grade Flutter patterns**:
@@ -113,12 +115,6 @@ You can download the latest **production build APK** in two ways:
 3. Scroll to **Artifacts**
 4. Download:  
    `flutter-release-apk`
-
----
-
-## 📊 CI Status
-
-![CI](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/flutter-release.yml/badge.svg)
 
 ---
 
