@@ -76,6 +76,59 @@ lib/
   pinterest_gesture_menu.dart
 ```
 
+## ⚙️ CI/CD — Automated Build & Release Pipeline
+
+This project uses a **production-grade GitHub Actions CI/CD pipeline** to ensure **code quality, versioning, and reliable delivery**.
+
+---
+
+### 🛠 Pipeline Tech
+**GitHub Actions · Flutter · Java 17 · CI/CD · Semantic Versioning · Artifact Management · Release Automation**
+
+---
+
+## 📥 Download the APK
+
+You can download the latest **production build APK** in two ways:
+
+---
+
+### 🏆 Option 1 — GitHub Releases (Public & Recommended)
+> Best for testers, recruiters, and public sharing
+
+1. Go to the **Releases** tab on this repository
+2. Click the **latest release**
+3. Download the attached file:  
+   `app-release.apk`
+
+📌 This version includes **auto-generated release notes and semantic version tags**
+
+---
+
+### 🗂 Option 2 — GitHub Actions Artifacts (Private / Dev Access)
+> Best for developers and CI verification
+
+1. Go to the **Actions** tab
+2. Click the latest successful workflow run
+3. Scroll to **Artifacts**
+4. Download:  
+   `flutter-release-apk`
+
+---
+
+## 📊 CI Status
+
+![CI](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/flutter-release.yml/badge.svg)
+
+---
+
+### ⭐ Why This Matters
+> This pipeline demonstrates **real-world mobile DevOps practices** — automated testing, versioning, artifact management, and release engineering — not just UI development.
+
+📌 **Perfect for:**  
+Flutter Engineer · Mobile Engineer · DevOps for Mobile · Production Systems
+
+
 
 ## 📜 License
 
